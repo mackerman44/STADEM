@@ -22,7 +22,8 @@ readLGRtrapDB = function(trap_path = NULL,
   }
 
   if(grepl('csv$', trap_path)) {
-    lgr_trap = readr::read_csv(trap_path)
+    lgr_trap = readr::read_csv(trap_path,
+                               show_col_types = FALSE)
   }
 
   if(grepl('accdb$', trap_path)) {
