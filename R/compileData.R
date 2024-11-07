@@ -199,7 +199,7 @@ compileData = function(spp = c('Chinook', 'Steelhead', 'Coho'),
         mutate(week_num = which(event_date %within% week_strata)) |>
         ungroup() |>
         relocate(week_num,
-                 .after = "date")
+                 .after = "event_date")
     }
 
     # summarise by date for particular species
