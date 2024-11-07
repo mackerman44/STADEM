@@ -276,11 +276,11 @@ compileData = function(spp = c('Chinook', 'Steelhead', 'Coho'),
         # filter out Fall Chinook detections, since they're weird (full of sort by code fish)
         pit_obs <-
           pit_obs |>
-          dplyr::mutate(keep_record = dplyr::case_when(species == "Chinook" &
+          dplyr::mutate(keep_record = dplyr::case_when(spp_name == "Chinook" &
                                                          (lubridate::month(obs_time) <= 8 |
                                                             (lubridate::month(obs_time) == 8 &
                                                                lubridate::day(obs_time) <= 17)) ~ T,
-                                                       species %in% c("Steelhead", "Coho") ~ T,
+                                                       spp_name %in% c("Steelhead", "Coho") ~ T,
                                                        .default = F)) |>
           dplyr::filter(keep_record) |>
           dplyr::select(-keep_record)
@@ -365,6 +365,7 @@ compileData = function(spp = c('Chinook', 'Steelhead', 'Coho'),
                everything())
     }
 
+    # mark trap rat valid if there were fish in the trap
     trap_rate <-
       trap_rate |>
       dplyr::full_join(trap_yr |>
